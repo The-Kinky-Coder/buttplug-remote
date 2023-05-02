@@ -3,6 +3,8 @@ A simple Arduino sketch that randomly transmits the on and off commands for a RF
 
 The butt plug was supposed to be Bluetooth/App controlled, but the seller sent a model that only works via a remote control. Well that wasn't was desired so I threw together a simple sketch that randomly turns on the toy for 1-3 mins with breaks of 5-30 mins inbetween.
 
+Note: There is no bi-directional communcation with this toy, so the remote can not know the true state the toy is in, if the real remote is used along side this one the two might get out of sync until the next cycle. This can also happen if the toy is too far away from the remote when it sends it's commands. For this reason I would recommend just getting the Bluetooth model, this code is only intended if you already have the 433Mhz remote version. You can do a lot more, more easily with the Bluetooth version of this toy.
+
 ## Which Butt Plug?
 Well I don't know its model number, it was just named "Telescopic Thrusting Anal Butt Plug" and the box just says Vibrator and lists features for another product. But I've included two pictures so you can better match the product in question.  
 ![Side view](images/1.png)  
