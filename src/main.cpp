@@ -17,10 +17,10 @@
 #define TOY_OFF "101010100101010100001100"  // RF command to turn off toy
 
 #ifdef USE_LED
-#define NUM_LEDS 1       // number of LEDs in the strip - in this case we are only using a single LED so its 1
-#define DATA_PIN 4       // the data pin used to connect the LED strip. Chose 4 because it was close to pin 15, skipped over pin 2 as that is a strapping pin.
-CRGB leds[NUM_LEDS];
-bool bootledFlag = false;
+#define NUM_LEDS 1        // number of LEDs in the strip - in this case we are only using a single LED so its 1
+#define DATA_PIN 4        // the data pin used to connect the LED strip. Chose 4 because it was close to pin 15, skipped over pin 2 as that is a strapping pin.
+CRGB leds[NUM_LEDS];      
+bool bootledFlag = false; // flag to indicate bootled status, LED is turned on during setup and is turned off one second later in loop, this is to let the user know the remote is working.
 #endif
 
 RCSwitch vibratorRF = RCSwitch();
@@ -49,11 +49,11 @@ void setup()
 #ifdef USE_LED
   // setup LED strip
   FastLED.addLeds<WS2812B, DATA_PIN>(leds, NUM_LEDS);
-  FastLED.setBrightness(8);
+  FastLED.setBrightness(8); // set the brightness of the LED strip (chose 8 as its not too bright but can still be easily seen)
 
-  bootledFlag = true;
-  leds[0] = CRGB::Red;
-  FastLED.show();
+  bootledFlag = true;       // set the flag to indicate bootled status
+  leds[0] = CRGB::Red;      // set the LED to red so the user knows it is bootled
+  FastLED.show();           // send the data to the LED
 #endif
 
   // make sure the toy is off
@@ -68,6 +68,7 @@ void setup()
 void loop()
 {
 #ifdef USE_LED
+  // Turn off the "booted LED" after one second has passed and disable the flag (so it doesn't turn of the other status LED states)
   if (millis() >= 1000 && bootledFlag)
   {
     bootledFlag = false;
