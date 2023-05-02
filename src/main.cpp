@@ -5,7 +5,7 @@
 #define DEBUG             // enable debug messages to serial monitor (comment out to disable)
 #define USE_LED           // enable LED strip (comment out to disable)
 
-#define TOY_RF_PIN    15  // The pin used to connect the RF transmitter
+#define TOY_RF_PIN    15  // The pin used to connect the RF transmitter - Chose pin 15 because it was close to 3.3v and GND on the dev kit I used.
 #define TOY_RF_REPEAT 3   // The number of times to repeat the RF transmission (less than 3 doesn't work reliably, 3 or more will be more reliable)
 
 #define TOY_ON_MIN    1   // minimum time in minutes to turn on toy
@@ -17,8 +17,8 @@
 #define TOY_OFF "101010100101010100001100"  // RF command to turn off toy
 
 #ifdef USE_LED
-#define NUM_LEDS 1
-#define DATA_PIN 4
+#define NUM_LEDS 1       // number of LEDs in the strip - in this case we are only using a single LED so its 1
+#define DATA_PIN 4       // the data pin used to connect the LED strip. Chose 4 because it was close to pin 15, skipped over pin 2 as that is a strapping pin.
 CRGB leds[NUM_LEDS];
 bool bootledFlag = false;
 #endif
@@ -26,8 +26,8 @@ bool bootledFlag = false;
 RCSwitch vibratorRF = RCSwitch();
 
 bool toyState = false;
-unsigned long nextToyActionTime = 0;
-unsigned long lastOneSecondTick = 0;
+unsigned long nextToyActionTime = 0;   // used to determine when the next action will take place
+unsigned long nextOneSecondTick = 0;   // used to determine when the next 1 sec tick will take place (prob won't be EXTACTLY 1 second, but is close enough for this usage case)
 unsigned long randomMilliSeconds(long min, long max) { return random(min, max) * 60 * 1000; }
 
 void setup()
@@ -77,9 +77,9 @@ void loop()
 #endif
 
   // one second tick - basically only used for the debug code, I really should wrap this with the DEBUG define but leaving it incase I want it for something else.
-  if (millis() >= lastOneSecondTick)
+  if (millis() >= nextOneSecondTick)
   {
-    lastOneSecondTick = millis() + 1000;
+    nextOneSecondTick = millis() + 1000;
 #ifdef DEBUG
     Serial.println("Current Millis: " + String(millis()) + " Toy State: " + String(toyState ? "ON" : "OFF") + " nextToyActionTime: " + String(nextToyActionTime) + " Millis until nextToyActionTime: " + String(nextToyActionTime - millis()));
 #endif
