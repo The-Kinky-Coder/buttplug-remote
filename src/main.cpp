@@ -48,7 +48,7 @@ void setup()
 
 #ifdef USE_LED
   // setup LED strip
-  FastLED.addLeds<WS2852, DATA_PIN>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2812B, DATA_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(8);
 
   bootledFlag = true;
