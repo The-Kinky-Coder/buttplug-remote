@@ -21,9 +21,11 @@ The 433Mhz transmitter is wired on pin 15 and the LED on pin 4 of a ESP32. But a
 
 Why did I use an ESP32? Well 1) I have them on hand 2) I might add bluetooth and/or wi-fi support if I can be arsed! But if you just want this simple random on/off sketch then pretty much any Arduino compatible should work, just adjust platformio.ini for your board and adjust the pin defines in [main.cpp](src/main.cpp).
 
-## libraries  
+## Libraries  
 [rc-switch](https://github.com/sui77/rc-switch) Used to handle the RF transmission.  
 [FastLED](https://github.com/FastLED/FastLED) Used to control a "addressable" RGB LED I had on hand to give some visual confirmation of the state the program. I only used a "addressable" RGB LED as that was the first LED I came across when throwing this thing together, any old led(s) could be used and remove the need for FastLED.
+
+If you use PlatformIO these libs should automatically be downloaded when you first compile them, for other IDEs you will prob have to manually download them though the Arduino does have a built in library manager which can be used to download them.
 
 ## So what about the Bluetooth version?
 The toy was purchased for me by a client who had the Bluetooth version and wanted to know if I could make the app better but the seller sent the wrong version, so I never actually got my hands on a working Bluetooth version (And I wasn't so inclined to "handle" my clients used toy :-P). However after decompiling the app binary for the toy the client did have (all done before the item was shipped) I discovered that its was basically just cloning a lovense toy in terms of communcation so you couuld always try that app if the listed app is a POS, also in the search of a solution for my client I found that people have done most of the work for us anyway. So if you want extra functions for your toy I suggest checking out both [buttplug.io](https://buttplug.io/) and [XToys.app](https://xtoys.app) (which iirc is based on buttplug.io).
